@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 83115292}
   - component: {fileID: 83115291}
   - component: {fileID: 83115290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NotWalkable (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
