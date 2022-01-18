@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Test
-  m_Shader: {fileID: -6465566751694194690, guid: 632f60529213b6b4c9a28c6d3cd71c44, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3c51ee397b9bd994d94d754171ea52fa, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -80,6 +80,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TexPlayer:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -94,6 +98,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_0446f057d05748d2a6a069b492f8a231: 2
+    - Vector1_06d18a77ed16448faaf633f6fcaff6bc: 0
+    - Vector1_5d363db9277f49b48c5f7ff9ffdaf86a: 0.2
+    - Vector1_60e16ca384a749bc891e5f2aedbdacee: 3
+    - Vector1_6ab5d24f6ecc467c9afe008f9c435cd1: 0
+    - Vector1_cb75a80628e94880a65e2d3e8c2a3dc4: 0
+    - Vector1_f09fe29648b74397b53561109f3a787e: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -120,10 +130,14 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _currentTime: 0
     m_Colors:
     - Color_01fc4c22078b416e878988b81c494146: {r: 0.5372549, g: 0.3921569, b: 0.29803923, a: 1}
     - Color_80a60a1823fb401c8cf01d424adff52d: {r: 6.498019, g: 6.498019, b: 6.498019, a: 0}
     - Color_be99c2101db8482fb7a1bd97ee4e3046: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+    - Vector2_82b14910bac34557a9eae74f7e69560e: {r: -4, g: 1, b: 0, a: 0}
+    - Vector2_d302e549e57041fcb24e21bb73702258: {r: 0.55, g: 0, b: 0, a: 0}
+    - Vector4_16f5ae4e622e4e9f8b2c2ae554fabd1e: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
