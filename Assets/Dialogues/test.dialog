@@ -1,2 +1,7 @@
-﻿test je suis bien à la maison
+﻿Test je suis bien à la maison
+@Wait 10
 Hello toi, comment vas tu, moi je vais bien, aurevoir
+@Wait 2
+@Blank
+@Wait 10
+Test je suis bien à la maison

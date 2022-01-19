@@ -8,8 +8,6 @@ using Object = UnityEngine.Object;
 
 public class CharacterDialogue : MonoBehaviour
 {
-    private CharacterDialogueManager cdm;
-    
     private List<string> lines = new List<string>();
 
     private int lineIndex = -1;
@@ -18,14 +16,12 @@ public class CharacterDialogue : MonoBehaviour
 
     private void Start()
     {
-        cdm = GetComponentInChildren<CharacterDialogueManager>();
-        
         SetFileParts();
         
         // Debug
         Dialogue();
     }
-
+    
     private void SetFileParts()
     {
         if (dialogueFile == null) return;
@@ -35,21 +31,17 @@ public class CharacterDialogue : MonoBehaviour
         string path = Path.Combine(Application.dataPath, unityFilePath);
         StreamReader reader = new StreamReader(path);
         string testString = "";
-
-        int i = 0;
         
-        while (i < 3)
+        do
         {
             testString = reader.ReadLine();
-            Debug.Log(testString);
             if (testString != "Null")
             {
                 string nString = testString;
                 lines.Add(nString);
             }
 
-            i++;
-        }
+        } while (testString != null);
         
         reader.Close();
         
@@ -67,29 +59,10 @@ public class CharacterDialogue : MonoBehaviour
 
         if (lineIndex >= lines.Count)
         {
-            cdm.GetDialogueTextComponent().text = "";
             return;
         }
         
-        string inst = EvaluateLine();
-
-        if (inst == "Line")
-        {
-            DialogueManager.instance.onEnd += Dialogue;
-            DialogueManager.instance.StartDialogue(lines[lineIndex], cdm);
-        }
-    }
-
-    private string EvaluateLine()
-    {
-        if (lines[lineIndex].StartsWith("@"))
-        {
-            // Command
-            return "Command";
-        }
-        else
-        {
-            return "Line";
-        }
+        DialogueManager.instance.onEnd += Dialogue;
+        DialogueManager.instance.StartDialogue(lines[lineIndex], "Character Name");
     }
 }
