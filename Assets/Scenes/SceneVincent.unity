@@ -255,6 +255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13eb5f74a70186549bb3129fea0cc8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 1
+  rangeInteraction: 4
+  isDebug: 0
 --- !u!1 &83115288
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +385,7 @@ GameObject:
   - component: {fileID: 235507664}
   - component: {fileID: 235507665}
   m_Layer: 0
-  m_Name: NotWalkable
+  m_Name: Bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -489,12 +492,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 235507659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bbf241b209194e41857505ff05d26f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c456b93ebb0728409defafeceff376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: -6465566751694194690, guid: 632f60529213b6b4c9a28c6d3cd71c44, type: 3}
-  delayHighlight: 3
-  speedHighlight: 2
+  postProcessManager: {fileID: 1162877541}
 --- !u!1 &339223369
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,8 +508,8 @@ GameObject:
   - component: {fileID: 339223374}
   - component: {fileID: 339223373}
   - component: {fileID: 339223372}
-  - component: {fileID: 339223371}
   - component: {fileID: 339223370}
+  - component: {fileID: 339223371}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -541,12 +542,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 339223369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bbf241b209194e41857505ff05d26f4, type: 3}
+  m_Script: {fileID: 11500000, guid: b8312ec6c08ab7b42a0813f9a3996662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: -6465566751694194690, guid: 632f60529213b6b4c9a28c6d3cd71c44, type: 3}
-  delayHighlight: 3
-  speedHighlight: 2
 --- !u!135 &339223372
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -760,12 +758,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 916981612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bbf241b209194e41857505ff05d26f4, type: 3}
+  m_Script: {fileID: 11500000, guid: b8312ec6c08ab7b42a0813f9a3996662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: -6465566751694194690, guid: 632f60529213b6b4c9a28c6d3cd71c44, type: 3}
-  delayHighlight: 3
-  speedHighlight: 2
 --- !u!114 &916981615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,6 +920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ed1eda6c69a2f40bf62feb6c2a333b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedAnimation: 0.3
   curveChrom:
     serializedVersion: 2
     m_Curve:
@@ -1159,7 +1155,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speedAnimation: 0.3
   bed: {fileID: 235507663}
 --- !u!1 &1302661520
 GameObject:
