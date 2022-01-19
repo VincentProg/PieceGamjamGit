@@ -14,15 +14,16 @@ public class PostProcessManager : MonoBehaviour
     ColorAdjustments colorAdjustements;
 
     bool isAnimation;
+    float initialTime;
+    [SerializeField] float speedAnimation;
     [SerializeField] AnimationCurve curveChrom, curveLens, curveVignette, curveColor, curveCamZoom, curveCamMove;
 
-    [SerializeField] float speedAnimation;
-    float initialTime;
-
-    [SerializeField] Transform bed;
     Camera cam;
     Vector3 camInitialPosition;
-    float initCamSize;
+    float camInitialSize;
+
+    [HideInInspector]
+    public Transform bed;
 
     private void Start()
     {
@@ -34,8 +35,7 @@ public class PostProcessManager : MonoBehaviour
 
         cam = Camera.main;
         camInitialPosition = cam.transform.position;
-        initCamSize = cam.orthographicSize;
-        StartCoroutine(Test());
+        camInitialSize = cam.orthographicSize;
     }
 
     private void Update()
@@ -45,13 +45,7 @@ public class PostProcessManager : MonoBehaviour
         {
 
             float t = (Time.time - initialTime) * speedAnimation;
-            SetPostProcessValues(t);
-
-
-            SetPostProcessValues(t);
-            ZoomCamera(t);
-            LookAtCamera(t);
-
+            AnimationZoomInBed(t);
             if(t > 3)
             {
                 isAnimation = false;
@@ -60,29 +54,25 @@ public class PostProcessManager : MonoBehaviour
 
     }
 
-    private void ActivateAnimation()
+    public void ActivateAnimationZoomInBed()
     {
         isAnimation = true;
         initialTime = Time.time;
     }
 
-    private void SetPostProcessValues(float t)
+    private void AnimationZoomInBed(float t)
     {
+        // POSTPROCESS
         chromaticAberration.intensity.value = curveChrom.Evaluate(t);
         lensDistortion.intensity.value = curveLens.Evaluate(t);
         vignette.intensity.value = curveVignette.Evaluate(t);
         colorAdjustements.postExposure.value = curveColor.Evaluate(t);
-    }
 
-    private void ZoomCamera(float t)
-    {
-        cam.orthographicSize = initCamSize * curveCamZoom.Evaluate(t);
-    }
-
-    private void LookAtCamera(float t)
-    {
+        // CAMERA
+        cam.orthographicSize = camInitialSize * curveCamZoom.Evaluate(t);
         cam.transform.position = Vector3.Lerp(camInitialPosition, camInitialPosition + bed.position, curveCamMove.Evaluate(t));
     }
+
 
     private void ResetPostProcessValues()
     {
@@ -90,11 +80,5 @@ public class PostProcessManager : MonoBehaviour
         lensDistortion.intensity.value = 0;
         vignette.intensity.value = 0;
         colorAdjustements.postExposure.value = 0;
-    }
-
-    IEnumerator Test()
-    {
-        yield return new WaitForSeconds(1);
-        ActivateAnimation();
     }
 }
