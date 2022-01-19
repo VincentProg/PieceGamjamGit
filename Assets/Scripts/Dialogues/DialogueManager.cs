@@ -14,9 +14,14 @@ public class DialogueManager : MonoBehaviour
     private bool breakState = false;
     private bool isTextCompleted = false;
     private string dialogueText = "";
+    private string characterName = "";
 
-    private CharacterDialogueManager actualCharacterDialogueManager;
+    private bool isWaiting = false;
+    private bool isSkipping = false;
 
+    [SerializeField] private TMP_Text textBox;
+    [SerializeField] private TMP_Text textName;
+    [SerializeField] private GameObject box;
     [SerializeField] private float textSpeed;
 
     public delegate void End();
@@ -34,53 +39,59 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(string _dialogueText, CharacterDialogueManager _cDialogueManager)
+    public void StartDialogue(string _dialogueText, string _characterName)
     {
         isDialogueEnd = false;
         breakState = false;
         isTextCompleted = false;
-
-        actualCharacterDialogueManager = _cDialogueManager;
-        actualCharacterDialogueManager.GetDialogueTextComponent().text = "";
+        isWaiting = false;
+        isSkipping = false;
 
         dialogueText = _dialogueText;
+        characterName = _characterName;
 
         StartCoroutine(IEDialogue());
     }
 
     private IEnumerator IEDialogue()
     {
-        string displayedText = "";
-        int alphaIndex = 0;
-        char[] textChars = dialogueText.ToCharArray();
-
-        TMP_Text dialogueBoxText = actualCharacterDialogueManager.GetDialogueTextComponent();
-
-        dialogueBoxText.text = dialogueText.Insert(alphaIndex, "<color=#00000000>");
-        yield return new WaitForSeconds(0.01f);
-        actualCharacterDialogueManager.MoveDialogueBox();
-
-        foreach (char c in textChars)
+        textName.text = characterName;
+        
+        float time = 0f;
+        string command = EvaluateLine(dialogueText, out time);
+        ComputeEvaluation(command);
+        
+        if (isWaiting)
         {
-            alphaIndex++;
-            dialogueBoxText.text = dialogueText;
-            displayedText = dialogueBoxText.text.Insert(alphaIndex, "<color=#00000000>");
-            dialogueBoxText.text = displayedText;
-            
-            if (breakState)
-                break;
-
-            yield return new WaitForSeconds(textSpeed * Time.deltaTime);
+            yield return new WaitForSeconds(time);
         }
+        else if (isSkipping)
+        {
+            
+        }
+        else
+        {
+            string displayedText = "";
+            int alphaIndex = 0;
+            char[] textChars = dialogueText.ToCharArray();
 
-        breakState = false;
-        dialogueBoxText.text = dialogueText;
-        isTextCompleted = true;
+            textBox.text = dialogueText.Insert(alphaIndex, "<color=#00000000>");
 
-        // TEMP
-        yield return new WaitForSeconds(2f);
+            foreach (char c in textChars)
+            {
+                alphaIndex++;
+                textBox.text = dialogueText;
+                displayedText = textBox.text.Insert(alphaIndex, "<color=#00000000>");
+                textBox.text = displayedText;
+            
+                if (breakState)
+                    break;
 
-        breakState = false;
+                yield return new WaitForSeconds(textSpeed * Time.deltaTime);
+            }
+            
+            textBox.text = dialogueText;
+        }
         
         EndActualDialogue();
     }
@@ -92,5 +103,60 @@ public class DialogueManager : MonoBehaviour
 
         if (onEnd != null)
             onEnd();
+    }
+
+    private string EvaluateLine(string _line, out float _time)
+    {
+        _time = 0f;
+        
+        if (_line.StartsWith("@"))
+        {
+            // Command
+            if (_line.StartsWith("@Wait"))
+            {
+                string strTime = "";
+                for (int i = 6; i < _line.Length; i++)
+                    strTime += _line[i];
+                
+                Debug.Log(strTime);
+                if (float.TryParse(strTime, out _time))
+                    return "Wait";
+            }
+            
+            if (_line.StartsWith("@Blank"))
+            {
+                return "Blank";
+            }
+            
+            return "Nothing";
+        }
+        else
+        {
+            return "Line";
+        }
+    }
+
+    private void ComputeEvaluation(string _command)
+    {
+        switch (_command)
+        {
+            case "Line":
+                // Show normal line
+                box.SetActive(true);
+                break;
+            
+            case "Wait":
+                // Only wait
+                isWaiting = true;
+                break;
+            
+            case "Blank":
+                // Reset textbox text
+                textBox.text = "";
+                textName.text = "";
+                box.SetActive(false);
+                isSkipping = true;
+                break;
+        }
     }
 }
