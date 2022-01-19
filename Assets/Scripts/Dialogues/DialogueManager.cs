@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     private bool isSkipping = false;
 
     [SerializeField] private TMP_Text textBox;
+    [SerializeField] private TMP_Text textName;
     [SerializeField] private GameObject box;
     [SerializeField] private float textSpeed;
 
@@ -47,12 +48,15 @@ public class DialogueManager : MonoBehaviour
         isSkipping = false;
 
         dialogueText = _dialogueText;
+        characterName = _characterName;
 
         StartCoroutine(IEDialogue());
     }
 
     private IEnumerator IEDialogue()
     {
+        textName.text = characterName;
+        
         float time = 0f;
         string command = EvaluateLine(dialogueText, out time);
         ComputeEvaluation(command);
@@ -149,6 +153,7 @@ public class DialogueManager : MonoBehaviour
             case "Blank":
                 // Reset textbox text
                 textBox.text = "";
+                textName.text = "";
                 box.SetActive(false);
                 isSkipping = true;
                 break;
