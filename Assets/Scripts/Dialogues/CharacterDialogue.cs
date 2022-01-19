@@ -28,6 +28,8 @@ public class CharacterDialogue : MonoBehaviour
 
     private void SetFileParts()
     {
+        if (dialogueFile == null) return;
+        
         string unityFilePath = AssetDatabase.GetAssetPath(dialogueFile).Remove(0, 7);
             
         string path = Path.Combine(Application.dataPath, unityFilePath);
@@ -57,6 +59,8 @@ public class CharacterDialogue : MonoBehaviour
 
     private void Dialogue()
     {
+        if (dialogueFile == null) return;
+        
         DialogueManager.instance.onEnd -= Dialogue;
         
         lineIndex++;

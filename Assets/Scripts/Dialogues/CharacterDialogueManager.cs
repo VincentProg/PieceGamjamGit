@@ -23,6 +23,12 @@ public class CharacterDialogueManager : MonoBehaviour
         dialogueText.text = "";
     }
 
+    private void Update()
+    {
+        Vector3 diff = transform.position - Camera.main.transform.position;
+        gameObject.transform.LookAt(diff);
+    }
+
     public TMP_Text GetDialogueTextComponent()
     {
         return dialogueText;
