@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveObjectShader : MonoBehaviour
+public class ItemShader : MonoBehaviour
 {
 
     [SerializeField] Shader shader;
@@ -20,8 +20,9 @@ public class InteractiveObjectShader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        renderer = GetComponent<Renderer>();       
         initialMaterial = renderer.material;
+        shader = Shader.Find("Shader Graphs/ShaderInteractive");
         renderer.material = CreateShaderFromMaterial(initialMaterial, transform.name);
         StartCoroutine(SetDelayHighlight());
     }
