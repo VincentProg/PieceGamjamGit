@@ -5,12 +5,12 @@ using UnityEngine;
 public abstract class Item : MonoBehaviour
 {
     // Start is called before the first frame update
-    PlayerAction player;
+    protected GhostScript player;
 
     void Awake()
     {
         gameObject.AddComponent<ItemShader>();
-        player = FindObjectOfType<PlayerAction>();
+        player = FindObjectOfType<GhostScript>();
     }
 
     public virtual void Interact()
