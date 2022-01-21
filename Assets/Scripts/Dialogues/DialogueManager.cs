@@ -39,6 +39,11 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (box != null) box.SetActive(false);
+    }
+
     public void StartDialogue(string _dialogueText, string _characterName)
     {
         isDialogueEnd = false;
