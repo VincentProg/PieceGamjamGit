@@ -11,47 +11,43 @@ public class CharacterDialogue : MonoBehaviour
     private List<string> lines = new List<string>();
 
     private int lineIndex = -1;
-    
-    [SerializeField] private Object dialogueFile;
 
-    private void Start()
-    {
-        SetFileParts();
-        
-        // Debug
-        Dialogue();
-    }
+    // Debug
+    public Object dilogue;
     
-    private void SetFileParts()
+    public delegate void DialogueEnd();
+    public event DialogueEnd onDialogueEnd;
+
+    public void SetFileParts(Object _dialogue)
     {
-        if (dialogueFile == null) return;
+        if (_dialogue == null) return;
         
-        string unityFilePath = AssetDatabase.GetAssetPath(dialogueFile).Remove(0, 7);
+        string unityFilePath = AssetDatabase.GetAssetPath(_dialogue).Remove(0, 7);
             
         string path = Path.Combine(Application.dataPath, unityFilePath);
         StreamReader reader = new StreamReader(path);
-        string testString = "";
+        string testString;
         
         do
         {
             testString = reader.ReadLine();
-            if (testString != "Null")
+            if (testString != null )
             {
-                string nString = testString;
-                lines.Add(nString);
+                if (testString.Replace(" ", "") != "")
+                {
+                    string nString = testString;
+                    lines.Add(nString);
+                }
             }
 
         } while (testString != null);
         
         reader.Close();
-        
-        if (lines.Count >= 1)
-            lines.RemoveAt(lines.Count-1);
     }
 
-    private void Dialogue()
+    public void Dialogue()
     {
-        if (dialogueFile == null) return;
+        if (lines.Count <= 0f) return;
         
         DialogueManager.instance.onEnd -= Dialogue;
         
@@ -59,6 +55,12 @@ public class CharacterDialogue : MonoBehaviour
 
         if (lineIndex >= lines.Count)
         {
+            if (onDialogueEnd != null)
+            {
+                onDialogueEnd();
+                onDialogueEnd = null;
+            }
+
             return;
         }
         

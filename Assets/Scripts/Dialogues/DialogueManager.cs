@@ -118,16 +118,15 @@ public class DialogueManager : MonoBehaviour
                 for (int i = 6; i < _line.Length; i++)
                     strTime += _line[i];
                 
-                Debug.Log(strTime);
                 if (float.TryParse(strTime, out _time))
                     return "Wait";
             }
             
-            if (_line.StartsWith("@Blank"))
+            if (_line.StartsWith("@Blank") || _line.StartsWith("@End"))
             {
                 return "Blank";
             }
-            
+
             return "Nothing";
         }
         else

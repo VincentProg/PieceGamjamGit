@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Visitor : MonoBehaviour
 {
+    private CharacterDialogue cDialogue;
+    
     public VisitorManager visitorManager;
 
     public VisitorDatas myDatas;
@@ -28,6 +30,7 @@ public class Visitor : MonoBehaviour
 
     private void Start()
     {
+        cDialogue = GetComponent<CharacterDialogue>();
         
         StartAction();
     }
@@ -86,7 +89,9 @@ public class Visitor : MonoBehaviour
                 break;
 
             case Action.ACTIONTYPE.SPEAK:
-
+                cDialogue.SetFileParts(actions[indexCurrentAction].dialogue);
+                cDialogue.onDialogueEnd += EndAction;
+                cDialogue.Dialogue();
                 break;
 
             case Action.ACTIONTYPE.PUTDOWN:
@@ -147,8 +152,9 @@ public class Action
 
     [Header("MOVE")]
     public Transform destination;
-    
-    [Header("SPEAK")]
+
+    [Header("SPEAK")] 
+    public Object dialogue;
     public List<string> sentences;
 
     [Header("PUTDOWN")]
