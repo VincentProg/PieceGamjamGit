@@ -18,7 +18,8 @@ public class DialogueManager : MonoBehaviour
 
     private bool isWaiting = false;
     private bool isSkipping = false;
-
+    private bool isWaitingInput = false;
+    
     [SerializeField] private TMP_Text textBox;
     [SerializeField] private TMP_Text textName;
     [SerializeField] private GameObject box;
@@ -44,6 +45,18 @@ public class DialogueManager : MonoBehaviour
         if (box != null) box.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (isDialogueEnd && isWaitingInput && (Input.GetMouseButtonDown(0) || Input.touchCount > 0))
+        {
+            isDialogueEnd = false;
+            isWaitingInput = false;
+            
+            if (onEnd != null)
+                onEnd();
+        }
+    }
+
     public void StartDialogue(string _dialogueText, string _characterName)
     {
         isDialogueEnd = false;
@@ -51,7 +64,8 @@ public class DialogueManager : MonoBehaviour
         isTextCompleted = false;
         isWaiting = false;
         isSkipping = false;
-
+        isWaitingInput = false;
+        
         dialogueText = _dialogueText;
         characterName = _characterName;
 
@@ -105,8 +119,8 @@ public class DialogueManager : MonoBehaviour
     {
         isDialogueEnd = true;
         isTextCompleted = true;
-
-        if (onEnd != null)
+        
+        if (onEnd != null && !isWaitingInput)
             onEnd();
     }
 
@@ -125,6 +139,11 @@ public class DialogueManager : MonoBehaviour
                 
                 if (float.TryParse(strTime, out _time))
                     return "Wait";
+                else
+                {
+                    isWaitingInput = true;
+                    return "Wait";
+                }
             }
             
             if (_line.StartsWith("@Blank") || _line.StartsWith("@End"))
@@ -136,6 +155,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            isWaitingInput = true;
             return "Line";
         }
     }
