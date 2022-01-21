@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Visitor : MonoBehaviour
 {
+    private CharacterDialogue cDialogue;
+    
     public VisitorManager visitorManager;
 
     public VisitorDatas myDatas;
@@ -30,6 +32,7 @@ public class Visitor : MonoBehaviour
 
     private void Start()
     {
+        cDialogue = GetComponent<CharacterDialogue>();
         if (actions.Count == 0) Debug.LogWarning("The visitor " + gameObject.name + " doesn't have any Action to do!");
         StartCoroutine(WaitBeforeStartAction());
     }
@@ -110,7 +113,9 @@ public class Visitor : MonoBehaviour
 
     public void Speak()
     {
-
+        cDialogue.SetFileParts(actions[indexCurrentAction].dialogue);
+        cDialogue.onDialogueEnd += EndAction;
+        cDialogue.Dialogue();
     }
 
     public void PutDown()
@@ -163,8 +168,9 @@ public class Action
 
     [Header("MOVE")]
     public Transform destination;
-    
-    [Header("SPEAK")]
+
+    [Header("SPEAK")] 
+    public Object dialogue;
     public List<string> sentences;
 
     [Header("PICKUP & PUTDOWN" )]
