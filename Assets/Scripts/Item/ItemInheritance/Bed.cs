@@ -15,7 +15,7 @@ public class Bed : Item
     public override void Interact()
     {
         base.Interact();
-        postProcessManager.ActivateAnimationZoomInBed();
+        player.EnterComa();
     }
 
 }

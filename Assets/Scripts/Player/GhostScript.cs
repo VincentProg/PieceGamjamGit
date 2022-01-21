@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerAction : MonoBehaviour
+public class GhostScript : MonoBehaviour
 {
     [HideInInspector]
     public bool canMove = true;
@@ -16,7 +16,9 @@ public class PlayerAction : MonoBehaviour
     private bool isPreparingToInteract;
     [SerializeField] float rangeInteraction;
 
-
+    // COMA
+    ComaScript comaScript;
+    PostProcessManager postProcessManager;
 
     // DEBUG
     [SerializeField] bool isDebug;
@@ -24,6 +26,9 @@ public class PlayerAction : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         if (agent == null) Debug.LogWarning("the Player need the component NavMeshAgent !");
+
+        postProcessManager = FindObjectOfType<PostProcessManager>();
+        comaScript = GetComponent<ComaScript>();
     }
 
     // Update is called once per frame
@@ -88,5 +93,18 @@ public class PlayerAction : MonoBehaviour
     {
         canMove = false;
         lastItem.Interact();
+    }
+
+    public void EndInteraction()
+    {
+        canMove = true;
+    }
+
+    public void EnterComa()
+    {
+        postProcessManager.ActivateTransition();
+        
+        comaScript.enabled = true;
+        enabled = false;
     }
 }
