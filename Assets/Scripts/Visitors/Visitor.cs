@@ -14,8 +14,10 @@ public class Visitor : MonoBehaviour
     // MOVEMENT
     private NavMeshAgent agent;
 
-    public List<Action> actions;
+    [SerializeField]
     private int indexCurrentAction = 0;
+    public List<Action> actions;
+
     private bool isDoingSomething = false;
 
     [HideInInspector]
@@ -31,8 +33,8 @@ public class Visitor : MonoBehaviour
     private void Start()
     {
         cDialogue = GetComponent<CharacterDialogue>();
-        
-        StartAction();
+        if (actions.Count == 0) Debug.LogWarning("The visitor " + gameObject.name + " doesn't have any Action to do!");
+        StartCoroutine(WaitBeforeStartAction());
     }
 
     // Update is called once per frame
@@ -79,6 +81,7 @@ public class Visitor : MonoBehaviour
 
     public void StartAction()
     {
+
         if (actions[indexCurrentAction].spawnNextCharacter)
             visitorManager.SpawnVisitor();
 
@@ -89,17 +92,15 @@ public class Visitor : MonoBehaviour
                 break;
 
             case Action.ACTIONTYPE.SPEAK:
-                cDialogue.SetFileParts(actions[indexCurrentAction].dialogue);
-                cDialogue.onDialogueEnd += EndAction;
-                cDialogue.Dialogue();
+                Speak();
                 break;
 
             case Action.ACTIONTYPE.PUTDOWN:
-
+                PutDown();
                 break;
 
             case Action.ACTIONTYPE.PICKUP:
-
+                PickUp();
                 break;
         }
         isDoingSomething = true;
@@ -112,25 +113,33 @@ public class Visitor : MonoBehaviour
 
     public void Speak()
     {
-
+        cDialogue.SetFileParts(actions[indexCurrentAction].dialogue);
+        cDialogue.onDialogueEnd += EndAction;
+        cDialogue.Dialogue();
     }
 
     public void PutDown()
     {
-
+        Transform newItem = Instantiate(actions[indexCurrentAction].itemToPutDown.transform, actions[indexCurrentAction].slot.transform);
+        actions[indexCurrentAction].slot.item = newItem.GetComponent<Item>();
+        EndAction();
     }
 
     public void PickUp()
     {
+        if (actions[indexCurrentAction].slot.item)
+            Destroy(actions[indexCurrentAction].slot.item.gameObject);
 
+        EndAction();
     }
 
     private void EndAction()
     {
+        isDoingSomething = false;
         indexCurrentAction++;
         if (indexCurrentAction < actions.Count)
         {
-            StartAction();
+            StartCoroutine(WaitBeforeStartAction());
         }
         else Leave();
     }
@@ -141,12 +150,19 @@ public class Visitor : MonoBehaviour
         agent.SetDestination(exit.position);
     }
 
+    IEnumerator WaitBeforeStartAction()
+    {
+        yield return new WaitForSeconds(actions[indexCurrentAction].secondsToWaitBeforeAction);      
+        StartAction();
+    }
+
 }
 
 [System.Serializable]
 public class Action 
 {
     public bool spawnNextCharacter;
+    public float secondsToWaitBeforeAction;
     public enum ACTIONTYPE { MOVE, SPEAK, PUTDOWN, PICKUP };
     public ACTIONTYPE actionType;
 
@@ -157,12 +173,9 @@ public class Action
     public Object dialogue;
     public List<string> sentences;
 
-    [Header("PUTDOWN")]
+    [Header("PICKUP & PUTDOWN" )]
     public GameObject itemToPutDown;
-    public Transform locationItem;
-
-    [Header("PICKUP")]
-    public GameObject itemToPickUp;
+    public Slot slot;
 
 }
 
