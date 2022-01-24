@@ -1,12 +1,6 @@
 ﻿Test je suis bien à la maison
 
-@Wait 5
-
 Hello toi, comment vas tu, moi je vais bien, aurevoir
-
-@Wait 2
-@Blank
-@Wait 5
 
 Test je suis bien à la maison
 
