@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class ComaScript : MonoBehaviour
 {
+    [HideInInspector]
+    public bool canLoad;
     [SerializeField] float durationPress;
     [SerializeField] float speedUnload;
     bool isPressingButton;
     float initialTime;
 
     [SerializeField] Image loadImage;
+    [SerializeField] GameObject isLoadingGO;
     PostProcessManager postProcessManager;
 
     GhostScript ghostScript;
+
+    [SerializeField] VisitorManager visitorManager;
     private void Start()
     {
  
@@ -24,19 +29,22 @@ public class ComaScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (canLoad)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                initialTime = Time.time;
+                isPressingButton = true;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                initialTime = Time.time;
+                isPressingButton = false;
+            }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            initialTime = Time.time;
-            isPressingButton = true;
-        } else if (Input.GetMouseButtonUp(0))
-        {
-            initialTime = Time.time;
-            isPressingButton = false;
+            if (isPressingButton) Load(true);
+            else if (loadImage.fillAmount > 0) Load(false);
         }
-
-        if (isPressingButton) Load(true);
-        else if (loadImage.fillAmount > 0) Load(false);
 
     }
 
@@ -58,14 +66,23 @@ public class ComaScript : MonoBehaviour
         
     }
 
+    public void ActivateLoad()
+    {
+        isLoadingGO.SetActive(true);
+        canLoad = true;
+    }
+
     void ExitComa()
     {
-
+        canLoad = false;
+        isLoadingGO.SetActive(false);
         postProcessManager.ActivateTransition();
-        
+        visitorManager.EndActionVisitors_AfterComa();
         ghostScript.enabled = true;
+        GameManager.Instance.isGhostMode = true;
         ghostScript.EndInteraction();
         enabled = false;
+        loadImage.fillAmount = 0;
     }
 
 }

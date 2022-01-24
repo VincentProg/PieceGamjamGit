@@ -7,15 +7,24 @@ public class Bed : Item
 
     public PostProcessManager postProcessManager;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         postProcessManager.bed = transform;
+        canBeInteracted = false;
     }
 
     public override void Interact()
     {
+        if (!canBeInteracted) return;
         base.Interact();
         player.EnterComa();
+    }
+
+    public override void Activate_Bed()
+    {
+        canBeInteracted = true;
+        shader.ActivateShader();
     }
 
 }
