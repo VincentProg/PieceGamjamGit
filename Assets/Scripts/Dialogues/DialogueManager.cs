@@ -6,6 +6,12 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
+public enum ELanguage
+{
+    FR,
+    EN
+}
+
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
@@ -19,7 +25,9 @@ public class DialogueManager : MonoBehaviour
     private bool isWaiting = false;
     private bool isSkipping = false;
     private bool isWaitingInput = false;
-    
+
+    public ELanguage language;
+    [Space]
     [SerializeField] private TMP_Text textBox;
     [SerializeField] private TMP_Text textName;
     [SerializeField] private GameObject box;
@@ -151,6 +159,12 @@ public class DialogueManager : MonoBehaviour
                 return "Blank";
             }
 
+            if (_line.StartsWith("@" + language))
+            {
+                EvaluateLineParameters(_line);
+                return "Line";
+            }
+
             return "Nothing";
         }
         else
@@ -160,12 +174,54 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void EvaluateLineParameters(string _line)
+    {
+        int indexOf = _line.IndexOf("@Input:");
+        
+        if (indexOf > -1)
+        {
+            int startIndex = indexOf + 7;
+            string strResult = "";
+            bool boolResult = false;
+
+            while (_line[startIndex] != ' ')
+            {
+                strResult += _line[startIndex];
+
+                startIndex++;
+            }
+
+            if (strResult.ToLower() == "true")
+            {
+                boolResult = true;
+            }
+            else if (strResult.ToLower() != "false")
+            {
+                Debug.LogError("Parameter @Input does not have a correct value.\nDefault value used: True." );
+                boolResult = true;
+            }
+
+            if (boolResult)
+            {
+                isWaitingInput = true;
+            }
+
+            dialogueText = dialogueText.Replace("@Input:" + strResult, "");
+        }
+        else
+        {
+            // Default value True
+            isWaitingInput = true;
+        }
+    }
+
     private void ComputeEvaluation(string _command)
     {
         switch (_command)
         {
             case "Line":
                 // Show normal line
+                dialogueText = dialogueText.Replace("@" + language + " ", "");
                 box.SetActive(true);
                 break;
             
@@ -179,6 +235,10 @@ public class DialogueManager : MonoBehaviour
                 textBox.text = "";
                 textName.text = "";
                 box.SetActive(false);
+                isSkipping = true;
+                break;
+            
+            default:
                 isSkipping = true;
                 break;
         }
