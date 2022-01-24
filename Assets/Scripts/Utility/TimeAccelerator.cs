@@ -10,7 +10,7 @@ public class TimeAccelerator : MonoBehaviour
     {
         if (Input.GetKeyDown("t"))
         {
-            if (!isAccelerate) Time.timeScale = 5;
+            if (!isAccelerate) Time.timeScale = 10;
             else Time.timeScale = 1;
 
             isAccelerate = !isAccelerate;

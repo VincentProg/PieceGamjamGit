@@ -91,7 +91,6 @@ public class GhostScript : MonoBehaviour
 
     void Interact()
     {
-        canMove = false;
         lastItem.Interact();
     }
 
@@ -102,9 +101,10 @@ public class GhostScript : MonoBehaviour
 
     public void EnterComa()
     {
-        postProcessManager.ActivateTransition();
-        
+        postProcessManager.ActivateTransition(); 
         comaScript.enabled = true;
+        comaScript.canLoad = false;
+        GameManager.Instance.isGhostMode = false;
         enabled = false;
     }
 }

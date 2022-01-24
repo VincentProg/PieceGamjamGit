@@ -14,11 +14,11 @@ public class Visitor : MonoBehaviour
     // MOVEMENT
     private NavMeshAgent agent;
 
-    [SerializeField]
-    private int indexCurrentAction = 0;
+    public int indexCurrentAction = 0;
     public List<Action> actions;
 
     private bool isDoingSomething = false;
+    private bool isSpeaking = false;
 
     [HideInInspector]
     public Transform exit;
@@ -32,7 +32,7 @@ public class Visitor : MonoBehaviour
 
     private void Start()
     {
-        cDialogue = GetComponent<CharacterDialogue>();
+        cDialogue = gameObject.AddComponent<CharacterDialogue>();
         if (actions.Count == 0) Debug.LogWarning("The visitor " + gameObject.name + " doesn't have any Action to do!");
         StartCoroutine(WaitBeforeStartAction());
     }
@@ -44,6 +44,11 @@ public class Visitor : MonoBehaviour
         {
             if (isDoingSomething)
             {
+                if (isSpeaking && !GameManager.Instance.isGhostMode)
+                {
+                    StartCoroutine(ActivateDialogue());
+                    return;
+                }
                 switch (actions[indexCurrentAction].actionType)
                 {
                     case Action.ACTIONTYPE.MOVE:
@@ -113,9 +118,19 @@ public class Visitor : MonoBehaviour
 
     public void Speak()
     {
-        cDialogue.SetFileParts(actions[indexCurrentAction].dialogue);
-        cDialogue.onDialogueEnd += EndAction;
-        cDialogue.Dialogue();
+        isSpeaking = true;
+    }
+
+    IEnumerator ActivateDialogue()
+    {
+        isSpeaking = false;
+        yield return new WaitForSeconds(5);
+        if (actions[indexCurrentAction].dialogue != null)
+        {
+            cDialogue.SetFileParts(actions[indexCurrentAction].dialogue);
+            cDialogue.onDialogueEnd += visitorManager.EndActionVisitors_AfterComa;
+            cDialogue.Dialogue();
+        }
     }
 
     public void PutDown()
@@ -133,7 +148,7 @@ public class Visitor : MonoBehaviour
         EndAction();
     }
 
-    private void EndAction()
+    public void EndAction()
     {
         isDoingSomething = false;
         indexCurrentAction++;
@@ -171,7 +186,6 @@ public class Action
 
     [Header("SPEAK")] 
     public Object dialogue;
-    public List<string> sentences;
 
     [Header("PICKUP & PUTDOWN" )]
     public GameObject itemToPutDown;
