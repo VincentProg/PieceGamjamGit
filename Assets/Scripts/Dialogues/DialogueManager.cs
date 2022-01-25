@@ -6,12 +6,6 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-public enum ELanguage
-{
-    FR,
-    EN
-}
-
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
@@ -27,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     private bool isWaitingInput = false;
 
     public ELanguage language;
+    public CharacterSO characterList;
     [Space]
     [SerializeField] private TMP_Text textBox;
     [SerializeField] private TMP_Text textName;
@@ -65,7 +60,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(string _dialogueText, string _characterName)
+    public void StartDialogue(string _dialogueText)
     {
         isDialogueEnd = false;
         breakState = false;
@@ -75,7 +70,6 @@ public class DialogueManager : MonoBehaviour
         isWaitingInput = false;
         
         dialogueText = _dialogueText;
-        characterName = _characterName;
 
         StartCoroutine(IEDialogue());
     }
@@ -165,13 +159,39 @@ public class DialogueManager : MonoBehaviour
                 return "Line";
             }
 
+            if (_line.StartsWith("@Name"))
+            {
+                characterName = _line.Replace("@Name ", "");
+                for (int i = 0; i < characterList.characters.Length; i++)
+                {
+                    if (characterList.characters[i].characterTagName == characterName)
+                    {
+                        for (int j = 0; j < characterList.characters[i].LanguageNames.Length; j++)
+                        {
+                            if (characterList.characters[i].LanguageNames[j].language == language)
+                            {
+                                characterName = characterList.characters[i].LanguageNames[j].charactername;
+                                break;
+                            }
+                        }
+
+                        textName.color = characterList.characters[i].colorName;
+                        break;
+                    }
+                }
+                return "Name";
+            }
+
             return "Nothing";
         }
-        else
+        
+        if (_line.StartsWith("#"))
         {
-            isWaitingInput = true;
-            return "Line";
+            // Tag go to
+            return "Nothing";
         }
+        
+        return "Nothing";
     }
 
     private void EvaluateLineParameters(string _line)
@@ -237,7 +257,7 @@ public class DialogueManager : MonoBehaviour
                 box.SetActive(false);
                 isSkipping = true;
                 break;
-            
+
             default:
                 isSkipping = true;
                 break;

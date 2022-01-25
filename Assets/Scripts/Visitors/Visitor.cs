@@ -115,7 +115,7 @@ public class Visitor : MonoBehaviour
     {
         cDialogue.SetFileParts(actions[indexCurrentAction].dialogue);
         cDialogue.onDialogueEnd += EndAction;
-        cDialogue.Dialogue();
+        cDialogue.Dialogue(actions[indexCurrentAction].startTag);
     }
 
     public void PutDown()
@@ -171,7 +171,7 @@ public class Action
 
     [Header("SPEAK")] 
     public Object dialogue;
-    public List<string> sentences;
+    public string startTag;
 
     [Header("PICKUP & PUTDOWN" )]
     public GameObject itemToPutDown;
