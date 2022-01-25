@@ -10,8 +10,8 @@ public class ItemShader : MonoBehaviour
 
     Renderer renderer;
 
-   
 
+    bool isActivated = true;
     bool isHighLight;
     float initialTime;
     [SerializeField] float delayHighlight = 3;
@@ -30,25 +30,44 @@ public class ItemShader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isHighLight) 
+        if (isActivated)
         {
-            float t = (Time.time - initialTime) * speedHighlight + 2;
-            renderer.material.SetFloat("_currentTime", t);
-            if (t > 4.5f)
+            if (isHighLight)
             {
-                isHighLight = false;
-                StartCoroutine(SetDelayHighlight());
-            }
+                if (gameObject.name == "Bed") print("wtf");
+                float t = (Time.time - initialTime) * speedHighlight + 2;
+                renderer.material.SetFloat("_currentTime", t);
+                if (t > 4.5f)
+                {
+                    isHighLight = false;
+                    StartCoroutine(SetDelayHighlight());
+                }
 
+            }
         }
 
     }
 
-    void ActivateHighlight()
+    private void ActivateHighlight()
     {
         isHighLight = true;
         renderer.material.SetFloat("_currentTime", 2);
         initialTime = Time.time;
+    }
+    public void ActivateShader()
+    {
+        isActivated = true;
+        initialTime = Time.time;
+        renderer.material.SetFloat("_currentTime", 2);
+        SetDelayHighlight();
+    }
+
+    public void DeactivateShader()
+    {
+        isActivated = false;
+        isHighLight = false;
+        renderer = GetComponent<Renderer>();
+        renderer.material.SetFloat("_currentTime", 2);
     }
 
     Material CreateShaderFromMaterial(Material material, string name)
@@ -83,6 +102,7 @@ public class ItemShader : MonoBehaviour
     IEnumerator SetDelayHighlight()
     {
         yield return new WaitForSeconds(delayHighlight);
+        print("youhou");
         ActivateHighlight();
     }
 }

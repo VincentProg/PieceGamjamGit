@@ -18,24 +18,30 @@ public class PostProcessManager : MonoBehaviour
     [SerializeField] float speedAnimation;
     [SerializeField] AnimationCurve curveChrom, curveLens, curveVignette, curveColor, curveCamZoom, curveCamMove;
 
-    Camera cam;
+    [SerializeField]
+    Camera cam1, cam2;
+
     Vector3 camInitialPosition;
     float camInitialSize;
 
     [HideInInspector]
     public Transform bed;
 
+    // COMA
+    bool isComa;
+    [SerializeField] GameObject canvasComa;
+
     private void Start()
     {
+        canvasComa.SetActive(false);
         postProcessVolume = GetComponent<Volume>();
         postProcessVolume.profile.TryGet<ChromaticAberration>(out chromaticAberration);
         postProcessVolume.profile.TryGet<LensDistortion>(out lensDistortion);
         postProcessVolume.profile.TryGet<Vignette>(out vignette);
         postProcessVolume.profile.TryGet<ColorAdjustments>(out colorAdjustements);
 
-        cam = Camera.main;
-        camInitialPosition = cam.transform.position;
-        camInitialSize = cam.orthographicSize;
+        camInitialPosition = cam1.transform.position;
+        camInitialSize = cam1.orthographicSize;
     }
 
     private void Update()
@@ -43,20 +49,35 @@ public class PostProcessManager : MonoBehaviour
 
         if (isAnimation)
         {
-
+            
             float t = (Time.time - initialTime) * speedAnimation;
-            AnimationZoomInBed(t);
-            if(t > 3)
+            if (isComa)
             {
-                isAnimation = false;
+                AnimationZoomInBed(t);
+                if (t > 1)
+                {
+                    SwapCamera();
+                    isAnimation = false;
+                    canvasComa.SetActive(true);
+                }
+            } else
+            {
+                t = 1 - t;
+                AnimationZoomInBed(t);
+                
             }
         }
 
     }
 
-    public void ActivateAnimationZoomInBed()
+    public void ActivateTransition()
     {
         isAnimation = true;
+        isComa = !isComa;
+        if (!isComa) {
+            SwapCamera();
+            canvasComa.SetActive(false);
+        }
         initialTime = Time.time;
     }
 
@@ -69,8 +90,8 @@ public class PostProcessManager : MonoBehaviour
         colorAdjustements.postExposure.value = curveColor.Evaluate(t);
 
         // CAMERA
-        cam.orthographicSize = camInitialSize * curveCamZoom.Evaluate(t);
-        cam.transform.position = Vector3.Lerp(camInitialPosition, camInitialPosition + bed.position, curveCamMove.Evaluate(t));
+        cam1.orthographicSize = camInitialSize * curveCamZoom.Evaluate(t);
+        cam1.transform.position = Vector3.Lerp(camInitialPosition, camInitialPosition + bed.position, curveCamMove.Evaluate(t));
     }
 
 
@@ -80,5 +101,11 @@ public class PostProcessManager : MonoBehaviour
         lensDistortion.intensity.value = 0;
         vignette.intensity.value = 0;
         colorAdjustements.postExposure.value = 0;
+    }
+
+    private void SwapCamera()
+    {
+        cam1.enabled = !cam1.enabled;
+        cam2.enabled = !cam2.enabled;
     }
 }

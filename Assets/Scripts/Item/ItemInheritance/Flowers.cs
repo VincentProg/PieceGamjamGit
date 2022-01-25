@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Flowers : Item
 {
+    CharacterDialogue cDialogue;
+    [SerializeField] Object dialogue;
 
+    private void Start()
+    {
+        cDialogue = gameObject.AddComponent<CharacterDialogue>();
+    }
 
     public override void Interact()
     {
         base.Interact();
+        cDialogue.SetFileParts(dialogue);
+        cDialogue.onDialogueEnd += StopInteraction;
+        cDialogue.Dialogue();
 
     }
 }
