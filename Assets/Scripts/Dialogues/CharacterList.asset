@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40f6de910a7cc4a4ba8d950ddc0dfefe, type: 3}
+  m_Name: CharacterList
+  m_EditorClassIdentifier: 
+  characters:
+  - characterTagName: Fils
+    colorName: {r: 0, g: 0, b: 0, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: Fils
+    - language: 1
+      charactername: Son
+  - characterTagName: Mere
+    colorName: {r: 0, g: 0, b: 0, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: "M\xE8re"
+    - language: 1
+      charactername: Mother
+  - characterTagName: Docteur
+    colorName: {r: 0, g: 0, b: 0, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: Docteur
+    - language: 1
+      charactername: Doctor
