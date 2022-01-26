@@ -64,7 +64,48 @@ public class CharacterDialogue : MonoBehaviour
             return;
         }
         
+        if (lines[lineIndex] == "@End")
+        {
+            DialogueManager.instance.StartDialogue("@Blank");
+            
+            if (onDialogueEnd != null)
+            {
+                onDialogueEnd();
+                onDialogueEnd = null;
+            }
+
+            return;
+        }
+        
         DialogueManager.instance.onEnd += Dialogue;
-        DialogueManager.instance.StartDialogue(lines[lineIndex], "Character Name");
+        DialogueManager.instance.StartDialogue(lines[lineIndex]);
+    }
+    
+    public void Dialogue(string _startTag)
+    {
+        if (lines.Count <= 0f) return;
+        
+        DialogueManager.instance.onEnd -= Dialogue;
+
+        if (!string.IsNullOrEmpty(_startTag))
+            lineIndex = lines.IndexOf('#' + _startTag);
+        else
+            lineIndex = 0;
+
+        if (lineIndex < 0) lineIndex = 0;
+        
+        if (lineIndex >= lines.Count)
+        {
+            if (onDialogueEnd != null)
+            {
+                onDialogueEnd();
+                onDialogueEnd = null;
+            }
+
+            return;
+        }
+        
+        DialogueManager.instance.onEnd += Dialogue;
+        DialogueManager.instance.StartDialogue(lines[lineIndex]);
     }
 }

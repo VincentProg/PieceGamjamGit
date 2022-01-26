@@ -19,7 +19,10 @@ public class DialogueManager : MonoBehaviour
     private bool isWaiting = false;
     private bool isSkipping = false;
     private bool isWaitingInput = false;
-    
+
+    public ELanguage language;
+    public CharacterSO characterList;
+    [Space]
     [SerializeField] private TMP_Text textBox;
     [SerializeField] private TMP_Text textName;
     [SerializeField] private GameObject box;
@@ -57,7 +60,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(string _dialogueText, string _characterName)
+    public void StartDialogue(string _dialogueText)
     {
         isDialogueEnd = false;
         breakState = false;
@@ -67,7 +70,6 @@ public class DialogueManager : MonoBehaviour
         isWaitingInput = false;
         
         dialogueText = _dialogueText;
-        characterName = _characterName;
 
         StartCoroutine(IEDialogue());
     }
@@ -151,12 +153,85 @@ public class DialogueManager : MonoBehaviour
                 return "Blank";
             }
 
+            if (_line.StartsWith("@" + language))
+            {
+                EvaluateLineParameters(_line);
+                return "Line";
+            }
+
+            if (_line.StartsWith("@Name"))
+            {
+                characterName = _line.Replace("@Name ", "");
+                for (int i = 0; i < characterList.characters.Length; i++)
+                {
+                    if (characterList.characters[i].characterTagName == characterName)
+                    {
+                        for (int j = 0; j < characterList.characters[i].LanguageNames.Length; j++)
+                        {
+                            if (characterList.characters[i].LanguageNames[j].language == language)
+                            {
+                                characterName = characterList.characters[i].LanguageNames[j].charactername;
+                                break;
+                            }
+                        }
+
+                        textName.color = characterList.characters[i].colorName;
+                        break;
+                    }
+                }
+                return "Name";
+            }
+
             return "Nothing";
+        }
+        
+        if (_line.StartsWith("#"))
+        {
+            // Tag go to
+            return "Nothing";
+        }
+        
+        return "Nothing";
+    }
+
+    private void EvaluateLineParameters(string _line)
+    {
+        int indexOf = _line.IndexOf("@Input:");
+        
+        if (indexOf > -1)
+        {
+            int startIndex = indexOf + 7;
+            string strResult = "";
+            bool boolResult = false;
+
+            while (_line[startIndex] != ' ')
+            {
+                strResult += _line[startIndex];
+
+                startIndex++;
+            }
+
+            if (strResult.ToLower() == "true")
+            {
+                boolResult = true;
+            }
+            else if (strResult.ToLower() != "false")
+            {
+                Debug.LogError("Parameter @Input does not have a correct value.\nDefault value used: True." );
+                boolResult = true;
+            }
+
+            if (boolResult)
+            {
+                isWaitingInput = true;
+            }
+
+            dialogueText = dialogueText.Replace("@Input:" + strResult, "");
         }
         else
         {
+            // Default value True
             isWaitingInput = true;
-            return "Line";
         }
     }
 
@@ -166,6 +241,7 @@ public class DialogueManager : MonoBehaviour
         {
             case "Line":
                 // Show normal line
+                dialogueText = dialogueText.Replace("@" + language + " ", "");
                 box.SetActive(true);
                 break;
             
@@ -179,6 +255,10 @@ public class DialogueManager : MonoBehaviour
                 textBox.text = "";
                 textName.text = "";
                 box.SetActive(false);
+                isSkipping = true;
+                break;
+
+            default:
                 isSkipping = true;
                 break;
         }
