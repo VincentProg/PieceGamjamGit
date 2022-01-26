@@ -45,6 +45,8 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
+        language = (ELanguage)PlayerPrefs.GetInt("Language", 0);
+        
         if (box != null) box.SetActive(false);
     }
 
