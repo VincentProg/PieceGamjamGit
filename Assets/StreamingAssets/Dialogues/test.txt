@@ -8,7 +8,7 @@
 @FR @Input:false Salut toi, comment vas tu, moi je vais bien, aurevoir.
 @EN @Input:false Hello you, how are you doing, I'm doing good, bye.
 
-@Wait 3
+@Wait 1
 
 @Name Docteur
 @FR Comment tu t'appelles ?
