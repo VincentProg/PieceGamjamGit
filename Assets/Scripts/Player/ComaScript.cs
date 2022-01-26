@@ -73,7 +73,6 @@ public class ComaScript : MonoBehaviour
     public void ActivateLoad()
     {
         canvasComa.SetActive(true);
-        print("activate");
         canLoad = true;
     }
 
@@ -81,8 +80,6 @@ public class ComaScript : MonoBehaviour
     {
         canvasComa.SetActive(false);
         canLoad = false;
-        print(canvasComa.name);
-        
         postProcessManager.ActivateTransition();
         visitorManager.EndActionVisitors_AfterComa();
         ghostScript.enabled = true;

@@ -14,6 +14,7 @@ public class Bed : Item
         canBeInteracted = false;
     }
 
+
     public override void Interact()
     {
         if (!canBeInteracted) return;
@@ -21,7 +22,7 @@ public class Bed : Item
         player.EnterComa();
     }
 
-    public override void Activate_Bed()
+    public void Activate_Bed()
     {
         canBeInteracted = true;
         shader.ActivateShader();

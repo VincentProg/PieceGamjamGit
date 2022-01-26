@@ -34,7 +34,6 @@ public class ItemShader : MonoBehaviour
         {
             if (isHighLight)
             {
-                if (gameObject.name == "Bed") print("wtf");
                 float t = (Time.time - initialTime) * speedHighlight + 2;
                 renderer.material.SetFloat("_currentTime", t);
                 if (t > 4.5f)
@@ -102,7 +101,6 @@ public class ItemShader : MonoBehaviour
     IEnumerator SetDelayHighlight()
     {
         yield return new WaitForSeconds(delayHighlight);
-        print("youhou");
         ActivateHighlight();
     }
 }

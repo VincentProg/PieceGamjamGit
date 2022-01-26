@@ -7,8 +7,9 @@ public class Flowers : Item
     CharacterDialogue cDialogue;
     [SerializeField] Object dialogue;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         cDialogue = gameObject.AddComponent<CharacterDialogue>();
     }
 

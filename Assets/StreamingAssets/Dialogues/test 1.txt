@@ -5,10 +5,8 @@
 @EN I'm at home.
 
 @Name Mere
-@FR @Input:false Salut toi, comment vas tu, moi je vais bien, aurevoir.
-@EN @Input:false Hello you, how are you doing, I'm doing good, bye.
-
-@Wait 3
+@FR Salut toi, comment vas tu, moi je vais bien, aurevoir.
+@EN Hello you, how are you doing, I'm doing good, bye.
 
 @Name Docteur
 @FR Comment tu t'appelles ?
