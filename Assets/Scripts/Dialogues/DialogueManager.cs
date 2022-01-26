@@ -81,7 +81,7 @@ public class DialogueManager : MonoBehaviour
         float time = 0f;
         string command = EvaluateLine(dialogueText, out time);
         ComputeEvaluation(command);
-        
+
         if (isWaiting)
         {
             yield return new WaitForSeconds(time);

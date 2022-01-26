@@ -12,19 +12,18 @@ public class CharacterDialogue : MonoBehaviour
 
     private int lineIndex = -1;
 
-    // Debug
-    public Object dilogue;
-    
     public delegate void DialogueEnd();
     public event DialogueEnd onDialogueEnd;
 
     public void SetFileParts(Object _dialogue)
     {
         if (_dialogue == null) return;
+
+        lineIndex = -1;
+
+        string unityFilePath = _dialogue.name + ".txt";
         
-        string unityFilePath = AssetDatabase.GetAssetPath(_dialogue).Remove(0, 7);
-            
-        string path = Path.Combine(Application.dataPath, unityFilePath);
+        string path = Path.Combine(Application.streamingAssetsPath + "/Dialogues/", unityFilePath);
         StreamReader reader = new StreamReader(path);
         string testString;
         
