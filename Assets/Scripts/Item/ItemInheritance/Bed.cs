@@ -15,11 +15,12 @@ public class Bed : Item
     }
 
 
-    public override void Interact()
+    public override void Interact(bool canBeDeactivated = true)
     {
         if (!canBeInteracted) return;
         base.Interact();
-        player.EnterComa();
+        if (cDialogue != null) cDialogue.onDialogueEnd += player.EnterComa;
+        else player.EnterComa();
     }
 
     public void Activate_Bed()

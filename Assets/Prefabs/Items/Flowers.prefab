@@ -108,5 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbeee23bc73fa14c8942d0547e99564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canActivateBed: 1
-  dialogue: {fileID: 102900000, guid: 825646529c79f904f992625bf57af722, type: 3}
+  isImportant: 0
+  dialogue: {fileID: 102900000, guid: 0b058bf90e35d5d49b2150ff9d5f82f9, type: 3}

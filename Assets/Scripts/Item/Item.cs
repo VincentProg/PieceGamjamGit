@@ -10,8 +10,13 @@ public abstract class Item : MonoBehaviour
     protected bool canBeInteracted = true;
     protected ItemShader shader;
 
+    protected CharacterDialogue cDialogue;
+    [SerializeField] protected Object dialogue;
+
+
     protected virtual void Awake()
     {
+        cDialogue = gameObject.AddComponent<CharacterDialogue>();
         shader = gameObject.AddComponent<ItemShader>();    
         player = FindObjectOfType<GhostScript>();
     }
@@ -20,7 +25,6 @@ public abstract class Item : MonoBehaviour
     {
         if (!canBeInteracted)
         {
-            print(gameObject.name);
             shader.DeactivateShader();
         }
 
@@ -30,14 +34,22 @@ public abstract class Item : MonoBehaviour
         }
     }
 
-    public virtual void Interact()
+    public virtual void Interact(bool canBeDeactivated = true)
     {
         if (canBeInteracted)
         {
             player.canMove = false;
-            Deactivate_Item();
+            if(canBeDeactivated) Deactivate_Item();
+            if (dialogue != null)
+            {
+                cDialogue.SetFileParts(dialogue);
+                cDialogue.onDialogueEnd += StopInteraction;
+                cDialogue.Dialogue();
+            }
         }
     }
+
+
 
     public virtual void StopInteraction()
     {
