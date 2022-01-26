@@ -28,12 +28,10 @@ public class PostProcessManager : MonoBehaviour
     public Transform bed;
 
     // COMA
-    bool isComa;
-    [SerializeField] GameObject canvasComa;
+    bool isComa = true;
 
     private void Start()
     {
-        canvasComa.SetActive(false);
         postProcessVolume = GetComponent<Volume>();
         postProcessVolume.profile.TryGet<ChromaticAberration>(out chromaticAberration);
         postProcessVolume.profile.TryGet<LensDistortion>(out lensDistortion);
@@ -58,7 +56,6 @@ public class PostProcessManager : MonoBehaviour
                 {
                     SwapCamera();
                     isAnimation = false;
-                    canvasComa.SetActive(true);
                 }
             } else
             {
@@ -76,7 +73,6 @@ public class PostProcessManager : MonoBehaviour
         isComa = !isComa;
         if (!isComa) {
             SwapCamera();
-            canvasComa.SetActive(false);
         }
         initialTime = Time.time;
     }
