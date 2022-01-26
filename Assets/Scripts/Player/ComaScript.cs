@@ -13,12 +13,16 @@ public class ComaScript : MonoBehaviour
     float initialTime;
 
     [SerializeField] Image loadImage;
-    [SerializeField] GameObject isLoadingGO;
+    [SerializeField] GameObject canvasComa;
     PostProcessManager postProcessManager;
 
     GhostScript ghostScript;
 
     [SerializeField] VisitorManager visitorManager;
+
+    public delegate void DialogueEnd();
+    public event DialogueEnd comaExitDelegate;
+
     private void Start()
     {
  
@@ -68,21 +72,32 @@ public class ComaScript : MonoBehaviour
 
     public void ActivateLoad()
     {
-        isLoadingGO.SetActive(true);
+        canvasComa.SetActive(true);
+        print("activate");
         canLoad = true;
     }
 
     void ExitComa()
     {
+        canvasComa.SetActive(false);
         canLoad = false;
-        isLoadingGO.SetActive(false);
+        print(canvasComa.name);
+        
         postProcessManager.ActivateTransition();
         visitorManager.EndActionVisitors_AfterComa();
         ghostScript.enabled = true;
         GameManager.Instance.isGhostMode = true;
         ghostScript.EndInteraction();
-        enabled = false;
+
         loadImage.fillAmount = 0;
+
+        if(comaExitDelegate != null)
+        {
+            comaExitDelegate();
+            comaExitDelegate = null;
+        }
+
+        enabled = false;
     }
 
 }

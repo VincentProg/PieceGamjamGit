@@ -20,7 +20,6 @@ public class Visitor : MonoBehaviour
     private bool isDoingSomething = false;
     private bool isSpeaking = false;
 
-    [HideInInspector]
     public Transform exit;
     private bool isLeaving;
 
@@ -34,6 +33,7 @@ public class Visitor : MonoBehaviour
     {
         cDialogue = gameObject.AddComponent<CharacterDialogue>();
         if (actions.Count == 0) Debug.LogWarning("The visitor " + gameObject.name + " doesn't have any Action to do!");
+        if(indexCurrentAction < actions.Count)
         StartCoroutine(WaitBeforeStartAction());
     }
 
