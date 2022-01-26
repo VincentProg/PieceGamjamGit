@@ -6,44 +6,55 @@ public abstract class Item : MonoBehaviour
 {
     // Start is called before the first frame update
     protected GhostScript player;
-    [SerializeField] bool canActivateBed;
+    [SerializeField] bool isImportant;
     protected bool canBeInteracted = true;
     protected ItemShader shader;
 
+    protected CharacterDialogue cDialogue;
+    [SerializeField] protected Object dialogue;
+
+
     protected virtual void Awake()
     {
+        cDialogue = gameObject.AddComponent<CharacterDialogue>();
         shader = gameObject.AddComponent<ItemShader>();    
         player = FindObjectOfType<GhostScript>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         if (!canBeInteracted)
         {
-            print(gameObject.name);
             shader.DeactivateShader();
+        }
+
+        if (isImportant)
+        {
+            ImportantItems.Instance.AddImportantItem(this);
         }
     }
 
-    public virtual void Interact()
+    public virtual void Interact(bool canBeDeactivated = true)
     {
         if (canBeInteracted)
         {
             player.canMove = false;
-            Deactivate_Item();
-            print("Interact");
+            if(canBeDeactivated) Deactivate_Item();
+            if (dialogue != null)
+            {
+                cDialogue.SetFileParts(dialogue);
+                cDialogue.onDialogueEnd += StopInteraction;
+                cDialogue.Dialogue();
+            }
         }
     }
+
+
 
     public virtual void StopInteraction()
     {
         player.canMove = true;
-        if (canActivateBed) Activate_Bed();
-    }
-
-    public virtual void Activate_Bed()
-    {
-        FindObjectOfType<Bed>().Activate_Bed();
+        if (isImportant) ImportantItems.Instance.ActivateImportantItem(this);
     }
 
     private void Deactivate_Item()

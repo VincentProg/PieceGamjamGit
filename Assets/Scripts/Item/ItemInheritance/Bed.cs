@@ -14,14 +14,16 @@ public class Bed : Item
         canBeInteracted = false;
     }
 
-    public override void Interact()
+
+    public override void Interact(bool canBeDeactivated = true)
     {
         if (!canBeInteracted) return;
         base.Interact();
-        player.EnterComa();
+        if (cDialogue != null) cDialogue.onDialogueEnd += player.EnterComa;
+        else player.EnterComa();
     }
 
-    public override void Activate_Bed()
+    public void Activate_Bed()
     {
         canBeInteracted = true;
         shader.ActivateShader();

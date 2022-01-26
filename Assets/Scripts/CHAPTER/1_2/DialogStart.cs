@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DialogStart : MonoBehaviour
 {
-    CharacterDialogue cDialogue;
+    protected CharacterDialogue cDialogue;
     [SerializeField] Object dialogue1_WhileComa;
     [SerializeField] Object dialogue2_JustAfterComa;
     ComaScript comaScript;
@@ -44,10 +44,13 @@ public class DialogStart : MonoBehaviour
         foreach (Visitor visitor in firstVisitors)
         {
             visitor.EndAction();
-            ghostScript.canMove = false;
-            cDialogue.SetFileParts(dialogue2_JustAfterComa);
-            cDialogue.onDialogueEnd += ghostScript.EndInteraction;
-            cDialogue.Dialogue();
+
         }
+        ghostScript.canMove = false;
+        cDialogue.SetFileParts(dialogue2_JustAfterComa);
+        cDialogue.onDialogueEnd += ghostScript.EndInteraction;
+        cDialogue.Dialogue();
     }
+
+
 }
