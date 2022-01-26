@@ -1490,6 +1490,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8221121786547491580, guid: e65a8fbc8fc7ccd4eba42f595b758007, type: 3}
+      propertyPath: characterList
+      value: 
+      objectReference: {fileID: 11400000, guid: e3b91d60cccbc3b46967b7a980e8f548, type: 2}
     - target: {fileID: 8221121787968506017, guid: e65a8fbc8fc7ccd4eba42f595b758007, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -1887,8 +1891,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c885ab4dc465714b85e13c54ad35f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue1_WhileComa: {fileID: 102900000, guid: 825646529c79f904f992625bf57af722, type: 3}
-  dialogue2_JustAfterComa: {fileID: 102900000, guid: 825646529c79f904f992625bf57af722, type: 3}
+  dialogue1_WhileComa: {fileID: 4900000, guid: 229cd885cc0f3d54daf4274fb1e2c61b, type: 3}
+  dialogue2_JustAfterComa: {fileID: 4900000, guid: 0b058bf90e35d5d49b2150ff9d5f82f9, type: 3}
   firstVisitors:
   - {fileID: 1670705032}
   - {fileID: 928870175}
