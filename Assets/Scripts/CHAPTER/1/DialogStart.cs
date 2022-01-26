@@ -45,7 +45,7 @@ public class DialogStart : MonoBehaviour
         {
             visitor.EndAction();
             ghostScript.canMove = false;
-            cDialogue.SetFileParts(dialogue1_WhileComa);
+            cDialogue.SetFileParts(dialogue2_JustAfterComa);
             cDialogue.onDialogueEnd += ghostScript.EndInteraction;
             cDialogue.Dialogue();
         }
