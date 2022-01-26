@@ -11,7 +11,6 @@ public class VisitorManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnVisitor();
         comaScript = FindObjectOfType<ComaScript>();
     }
 
@@ -36,6 +35,6 @@ public class VisitorManager : MonoBehaviour
                 visitor.EndAction();
             }
         }
-        comaScript.ActivateLoad();
+        
     }
 }
