@@ -1,0 +1,10 @@
+#Start
+
+@Name Alexis
+@FR Ma tête… Qu’est-ce qui se passe ?
+@EN My head… What’s going on ?
+
+@FR C’est… c’est moi sur le lit ? Pourquoi je me vois ?
+@EN It’s… It’s me on the bed ? Why do I see myself ?
+
+@END
