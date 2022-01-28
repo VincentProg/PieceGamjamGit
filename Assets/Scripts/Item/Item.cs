@@ -51,18 +51,22 @@ public abstract class Item : MonoBehaviour
                 cDialogue.SetFileParts(dialogues[currentIndexDialog]);
                 cDialogue.onDialogueEnd += StopInteraction;
                 cDialogue.Dialogue();
-                currentIndexDialog++;
+                cDialogue.onDialogueEnd += IncrementDialogIndex;
             }
             else StopInteraction();
         }
     }
 
-
+    private void IncrementDialogIndex()
+    {
+        currentIndexDialog++;
+    }
 
     public virtual void StopInteraction()
     {
         player.canMove = true;
         if (isImportant) ImportantItems.Instance.ActivateImportantItem(this);
+        if(endInteraction != null)
         endInteraction();
         endInteraction = null;
     }

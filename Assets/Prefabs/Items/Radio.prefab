@@ -111,7 +111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isImportant: 0
   canBeInteracted: 1
-  dialogues: []
+  dialogues:
+  - {fileID: 102900000, guid: eb197b04f5ce2aa48b536f720368a263, type: 3}
   sensHighlight: 1
   son: {fileID: 992051823146024118}
 --- !u!82 &992051823146024118

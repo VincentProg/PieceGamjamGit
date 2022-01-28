@@ -4,4 +4,8 @@
 @FR C’est quoi ces marques sur mon corps ? Que m’est-il arrivé ?
 @EN What are these marks on my body ? What happened to me ?
 
+@Name Alexis
+@FR Je me sens absorbé...
+@EN I feel absorb...
+
 @End

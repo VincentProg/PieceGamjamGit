@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemShader : MonoBehaviour
 {
 
-    [SerializeField] Shader shader;
+     Shader shader;
     Material initialMaterial;
 
     Renderer renderer;
@@ -23,6 +23,7 @@ public class ItemShader : MonoBehaviour
     {
         renderer = GetComponent<Renderer>();       
         initialMaterial = renderer.material;
+
         shader = Shader.Find("Shader Graphs/ShaderInteractive");
         renderer.material = CreateShaderFromMaterial(initialMaterial, transform.name);
         StartCoroutine(SetDelayHighlight());

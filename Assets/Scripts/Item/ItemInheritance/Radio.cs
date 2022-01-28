@@ -11,6 +11,7 @@ public class Radio : Item
         base.Interact(false);
         son.Play();
         cDialogue.onDialogueEnd += son.Stop;
+        currentIndexDialog = 0;
         canBeInteracted = true;
     }
 }

@@ -24,6 +24,7 @@ public class CharacterDialogue : MonoBehaviour
         string unityFilePath = _dialogue.name + ".txt";
         
         string path = Path.Combine(Application.streamingAssetsPath + "/Dialogues/", unityFilePath);
+        Debug.LogError(path);
         StreamReader reader = new StreamReader(path);
         string testString;
         

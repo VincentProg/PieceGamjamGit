@@ -6539,6 +6539,7 @@ MonoBehaviour:
   canBeInteracted: 1
   dialogues:
   - {fileID: 102900000, guid: 35ddd00b12df34a40bff336a12edae1b, type: 3}
+  - {fileID: 102900000, guid: eb7e3dcf38dcc64489e7294d6ba60006, type: 3}
   sensHighlight: 2
   postProcessManager: {fileID: 1162877541}
   isEnterComa: 0

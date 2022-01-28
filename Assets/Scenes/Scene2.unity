@@ -11655,8 +11655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5112760e38d7d44ea062bffe4c74ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue1_WhileComa: {fileID: 102900000, guid: 0b058bf90e35d5d49b2150ff9d5f82f9, type: 3}
-  dialogue2_JustAfterComa: {fileID: 102900000, guid: 229cd885cc0f3d54daf4274fb1e2c61b, type: 3}
+  dialogue1_WhileComa: {fileID: 102900000, guid: 69c5e1a3636000649b82399caf7313c8, type: 3}
+  dialogue2_JustAfterComa: {fileID: 102900000, guid: 398146cee9360e14780760dce6f98fc5, type: 3}
 --- !u!1 &1162877537
 GameObject:
   m_ObjectHideFlags: 0
@@ -12082,7 +12082,7 @@ PrefabInstance:
     - target: {fileID: 3738358908076434793, guid: f7896d780e7d8de42ace639dd89c3e8b, type: 3}
       propertyPath: actions.Array.data[1].itemToPutDown
       value: 
-      objectReference: {fileID: 382237814919466422, guid: dae7f768eba280c46889680410de21ae, type: 3}
+      objectReference: {fileID: 2705718718274542769, guid: 47c5e5ac2b3027044aca99ede2bad079, type: 3}
     - target: {fileID: 3738358908076434793, guid: f7896d780e7d8de42ace639dd89c3e8b, type: 3}
       propertyPath: actions.Array.data[3].itemToPutDown
       value: 
@@ -12093,7 +12093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3738358908076434793, guid: f7896d780e7d8de42ace639dd89c3e8b, type: 3}
       propertyPath: actions.Array.data[0].secondsToWaitBeforeAction
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3738358908076434793, guid: f7896d780e7d8de42ace639dd89c3e8b, type: 3}
       propertyPath: actions.Array.data[1].secondsToWaitBeforeAction

@@ -1,0 +1,11 @@
+#Start
+
+@Name Alexis
+@FR Je ne comprend absolument pas comment je fais pour sortir de ce corps...
+@EN I really do not understand how i can get out of my body...
+
+@Name Alexis
+@FR Oh mon cousin arrive !
+@EN Oh my cousin is coming !
+
+@End

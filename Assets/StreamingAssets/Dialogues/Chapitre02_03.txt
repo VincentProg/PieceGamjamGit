@@ -1,6 +1,6 @@
 #Start
 
-@Name EM
+@Name Equipe médical
 @FR La respiration est redevenu stable. Il ne devrait plus y avoir de problèmes pour le moment.
 @EN Breathing has become stable again. There should be no more problems for now.
 
