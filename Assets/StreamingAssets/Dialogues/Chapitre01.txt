@@ -1,6 +1,6 @@
 #Start
 
-@Name UwU
+@Name ...
 @FR *Alexis… Alexis…*
 @EN *Alexis… Alexis…*
 
@@ -11,7 +11,7 @@
 @FR Pourquoi je ne vois rien ? Et pourquoi je n’arrive pas à bouger ?
 @EN Why can’t I see anything ? And why can’t I move ?
 
-@Name EM
+@Name Equipe médical
 @FR Alexis est maintenant dans un état stable.
 @EN Alexis is now in stable condition.
 
@@ -30,7 +30,7 @@
 @FR Hé ! Que ce passe t’il ? Répondez-moi !
 @EN Hey ! What is going on ? Answer me !
 
-@Name EM
+@Name Equipe médical
 @FR On ne peut rien faire de plus pour le moment.
 @EN We can’t do anything more at the moment. 
 
