@@ -1,6 +1,6 @@
 #Start
 
-@Name UwU
+@Name ...
 @FR *Alexis… Alexis…*
 @EN *Alexis… Alexis…*
 
