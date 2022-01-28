@@ -1,0 +1,12 @@
+#Start
+
+@Name Alexis
+@FR A quel moment on envoie un cactus a un patient hospitalise Ha Ha Ha, c'est des fleurs qu'on est cense deposer bordel !
+@EN How can he send a cactus to a hospital patient Ha Ha Ha, it's flowers that we are supposed to drop damnit!
+
+@Name Alexis
+@FR Je ne pense pas que j'aurais une autre visite ce soir, autant retourner dans mon corps, j'aimerais bien voir mes parents.
+@EN I don't think I'll have another visit tonight, might as well go back to my body, I'd like to see my parents...
+
+
+@End
