@@ -13,24 +13,66 @@ MonoBehaviour:
   m_Name: CharacterList
   m_EditorClassIdentifier: 
   characters:
-  - characterTagName: Fils
-    colorName: {r: 0, g: 0, b: 0, a: 1}
+  - characterTagName: ...
+    colorName: {r: 0.2784314, g: 0.6862745, b: 0.99215686, a: 1}
     LanguageNames:
     - language: 0
-      charactername: Fils
+      charactername: ...
     - language: 1
-      charactername: Son
-  - characterTagName: Mere
-    colorName: {r: 0, g: 0, b: 0, a: 1}
+      charactername: ...
+  - characterTagName: Alexis
+    colorName: {r: 0.2756764, g: 0.6845732, b: 0.990566, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: Alexis
+    - language: 1
+      charactername: Alexis
+  - characterTagName: "M\xE8re"
+    colorName: {r: 0.2784314, g: 0.6862745, b: 0.99215686, a: 1}
     LanguageNames:
     - language: 0
       charactername: "M\xE8re"
     - language: 1
       charactername: Mother
+  - characterTagName: "P\xE8re"
+    colorName: {r: 0.2784314, g: 0.6862745, b: 0.99215686, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: "P\xE8re"
+    - language: 1
+      charactername: Father
+  - characterTagName: Vincent
+    colorName: {r: 0.2784314, g: 0.6862745, b: 0.99215686, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: Vincent
+    - language: 1
+      charactername: Vincent
   - characterTagName: Docteur
-    colorName: {r: 0, g: 0, b: 0, a: 1}
+    colorName: {r: 0.2784314, g: 0.6862745, b: 0.99215686, a: 1}
     LanguageNames:
     - language: 0
       charactername: Docteur
     - language: 1
       charactername: Doctor
+  - characterTagName: "Equipe m\xE9dical"
+    colorName: {r: 0.2784314, g: 0.6862745, b: 0.99215686, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: "Equipe m\xE9dical"
+    - language: 1
+      charactername: Medical team
+  - characterTagName: Marie
+    colorName: {r: 0.2784314, g: 0.6862745, b: 0.99215686, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: Marie
+    - language: 1
+      charactername: Marie
+  - characterTagName: Marion
+    colorName: {r: 0.2784314, g: 0.6862745, b: 0.99215686, a: 1}
+    LanguageNames:
+    - language: 0
+      charactername: Marion
+    - language: 1
+      charactername: Marion
