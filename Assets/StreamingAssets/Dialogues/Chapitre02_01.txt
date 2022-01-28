@@ -7,4 +7,4 @@
 @FR C’est… c’est moi sur le lit ? Pourquoi je me vois ?
 @EN It’s… It’s me on the bed ? Why do I see myself ?
 
-@END
+@End

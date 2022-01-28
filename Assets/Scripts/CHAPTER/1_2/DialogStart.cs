@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DialogStart : MonoBehaviour
 {
@@ -10,15 +11,24 @@ public class DialogStart : MonoBehaviour
     GhostScript ghostScript;
 
     [SerializeField] Visitor[] firstVisitors = new Visitor[3];
+
+    Bed bed;
+    Flowers flowers;
+
     private void Start()
     {
         cDialogue = gameObject.AddComponent<CharacterDialogue>();
         comaScript = FindObjectOfType<ComaScript>();
         ghostScript = FindObjectOfType<GhostScript>();
 
+        bed = FindObjectOfType<Bed>();
+        bed.isEnterComa = false;
         StartCoroutine(Wait());
 
-    
+        flowers = FindObjectOfType<Flowers>();
+
+
+
     }
 
     IEnumerator Wait()
@@ -29,6 +39,7 @@ public class DialogStart : MonoBehaviour
         cDialogue.onDialogueEnd += SpawnVisitors;
         cDialogue.Dialogue();
         comaScript.comaExitDelegate += ActionAfterComa;
+        print("Wait");
     }
 
     void SpawnVisitors()
@@ -49,8 +60,37 @@ public class DialogStart : MonoBehaviour
         ghostScript.canMove = false;
         cDialogue.SetFileParts(dialogue2_JustAfterComa);
         cDialogue.onDialogueEnd += ghostScript.EndInteraction;
+
+        cDialogue.onDialogueEnd += bed.ActivateItem;
+
+        bed.endInteraction += flowers.ActivateItem;
+        flowers.endInteraction += ActivateComa;
+        flowers.endInteraction += EndInteractionBedFinal;
         cDialogue.Dialogue();
+        print("Dialog2");
     }
 
+    void ActivateComa()
+    {
+        bed.isEnterComa = true;
+    }
 
+    void EndInteractionBedFinal()
+    {
+        print("endflowers");
+        bed.endInteraction += callEndScene;
+    }
+
+    void callEndScene()
+    {
+        print("startco");
+        StartCoroutine(EndScene());
+    }
+
+    IEnumerator EndScene()
+    {
+        print("co");
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }

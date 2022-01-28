@@ -7,17 +7,22 @@ public abstract class Item : MonoBehaviour
     // Start is called before the first frame update
     protected GhostScript player;
     [SerializeField] bool isImportant;
-    protected bool canBeInteracted = true;
+    [SerializeField] protected bool canBeInteracted = true;
     protected ItemShader shader;
 
     protected CharacterDialogue cDialogue;
-    [SerializeField] protected Object dialogue;
+    [SerializeField] protected Object[] dialogues;
+    protected int currentIndexDialog = 0;
 
+    public delegate void EndInteraction();
+    public EndInteraction endInteraction;
 
+    [SerializeField] float sensHighlight;
     protected virtual void Awake()
     {
         cDialogue = gameObject.AddComponent<CharacterDialogue>();
-        shader = gameObject.AddComponent<ItemShader>();    
+        shader = gameObject.AddComponent<ItemShader>();
+        shader.sens = sensHighlight;
         player = FindObjectOfType<GhostScript>();
     }
 
@@ -40,12 +45,15 @@ public abstract class Item : MonoBehaviour
         {
             player.canMove = false;
             if(canBeDeactivated) Deactivate_Item();
-            if (dialogue != null)
+            if (dialogues != null && currentIndexDialog < dialogues.Length)
             {
-                cDialogue.SetFileParts(dialogue);
+
+                cDialogue.SetFileParts(dialogues[currentIndexDialog]);
                 cDialogue.onDialogueEnd += StopInteraction;
                 cDialogue.Dialogue();
+                currentIndexDialog++;
             }
+            else StopInteraction();
         }
     }
 
@@ -55,12 +63,20 @@ public abstract class Item : MonoBehaviour
     {
         player.canMove = true;
         if (isImportant) ImportantItems.Instance.ActivateImportantItem(this);
+        endInteraction();
+        endInteraction = null;
     }
 
     private void Deactivate_Item()
     {
         shader.DeactivateShader();
         canBeInteracted = false;
+    }
+
+    public void ActivateItem()
+    {
+        canBeInteracted = true;
+        shader.ActivateShader();
     }
 
 }

@@ -32,7 +32,7 @@ public class ImportantItems : MonoBehaviour
         importantItems.Remove(item);
         if(importantItems.Count == 0)
         {
-            bed.Activate_Bed();
+            bed.ActivateItem();
         }
     }
 

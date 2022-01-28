@@ -4,13 +4,6 @@
 @FR Je suis à la maison.
 @EN I'm at home.
 
-@Name Mere
-@FR Salut toi, comment vas tu, moi je vais bien, aurevoir.
-@EN Hello you, how are you doing, I'm doing good, bye.
-
-@Name Docteur
-@FR Comment tu t'appelles ?
-@EN What's your name?
 
 @End
 
