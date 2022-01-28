@@ -110,7 +110,7 @@ public class DialogueManager : MonoBehaviour
                 if (breakState)
                     break;
 
-                yield return new WaitForSeconds(textSpeed * Time.deltaTime);
+                yield return new WaitForSeconds(textSpeed);
             }
             
             textBox.text = dialogueText;

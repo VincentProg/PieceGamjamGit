@@ -18,7 +18,7 @@ public class CharacterDialogue : MonoBehaviour
     public void SetFileParts(Object _dialogue)
     {
         if (_dialogue == null) return;
-
+        lines = new List<string>();
         lineIndex = -1;
 
         string unityFilePath = _dialogue.name + ".txt";

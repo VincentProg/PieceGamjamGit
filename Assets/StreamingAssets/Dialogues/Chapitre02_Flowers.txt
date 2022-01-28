@@ -10,7 +10,7 @@
 @FR Quelle perte ?
 @EN What loss ?
 
-@FR Ma tête ! J’ai l’impression… qu’elle vas exploser !
+@FR Ma tête ! J’ai l’impression… qu’elle va exploser !
 @EN My head ! I feel like… she’s going to explode !
 
-@END
+@End
