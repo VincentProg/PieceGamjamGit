@@ -16,6 +16,7 @@ public class ItemShader : MonoBehaviour
     float initialTime;
     [SerializeField] float delayHighlight = 3;
     [SerializeField] float speedHighlight = 2;
+    public float sens;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,6 @@ public class ItemShader : MonoBehaviour
         {
             if (isHighLight)
             {
-                if (gameObject.name == "Bed") print("wtf");
                 float t = (Time.time - initialTime) * speedHighlight + 2;
                 renderer.material.SetFloat("_currentTime", t);
                 if (t > 4.5f)
@@ -57,6 +57,7 @@ public class ItemShader : MonoBehaviour
     public void ActivateShader()
     {
         isActivated = true;
+        isHighLight = true;
         initialTime = Time.time;
         renderer.material.SetFloat("_currentTime", 2);
         SetDelayHighlight();
@@ -68,6 +69,7 @@ public class ItemShader : MonoBehaviour
         isHighLight = false;
         renderer = GetComponent<Renderer>();
         renderer.material.SetFloat("_currentTime", 2);
+        StopAllCoroutines();
     }
 
     Material CreateShaderFromMaterial(Material material, string name)
@@ -75,13 +77,15 @@ public class ItemShader : MonoBehaviour
         Material mat = new Material(shader);
         mat.name = "Shader Disappear - " + name;
 
-        //Texture texture;
-        //if (texture = material.GetTexture("_BaseMap"))
-        //    mat.SetTexture("_BaseMap", texture);
+        Texture texture;
+        if (texture = material.GetTexture("_BaseMap"))
+            mat.SetTexture("_BaseMap", texture);
         //if (texture = material.GetTexture("_MetallicGlossMap"))
         //    mat.SetTexture("_MetallicMap", texture);
-        //if (texture = material.GetTexture("_BumpMap"))
-        //    mat.SetTexture("_NormalMap", texture);
+        if (texture = material.GetTexture("_BumpMap"))
+            mat.SetTexture("_NormalMap", texture);
+        //if (texture = material.GetTexture("_DetailMask"))
+        //    mat.SetTexture("_MaskMap", texture);
         //if (texture = material.GetTexture("_OcclusionMap"))
         //    mat.SetTexture("_OcclusionMap", texture);
         //if (texture = material.GetTexture("_EmissionMap"))
@@ -89,6 +93,7 @@ public class ItemShader : MonoBehaviour
 
         mat.SetColor("_Color", material.GetColor("_BaseColor"));
         mat.SetFloat("_currentTime", 2);
+        mat.SetFloat("_Sens", sens);
         //mat.SetColor("_EmissionColor", material.GetColor("_EmissionColor"));
         //if (!isAppear) mat.SetColor("_ColorEdge", colorEdgeDisappear);
         //if (material.IsKeywordEnabled("_EMISSION")) mat.SetFloat("_Intensity", 1);
@@ -102,7 +107,7 @@ public class ItemShader : MonoBehaviour
     IEnumerator SetDelayHighlight()
     {
         yield return new WaitForSeconds(delayHighlight);
-        print("youhou");
+        print("yo");
         ActivateHighlight();
     }
 }

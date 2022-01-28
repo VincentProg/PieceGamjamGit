@@ -24,6 +24,7 @@ public class VisitorManager : MonoBehaviour
             visitors[currentIndex].exit = transform;
             currentIndex++;
         }
+        print("hi");
     }
 
     public void EndActionVisitors_AfterComa()

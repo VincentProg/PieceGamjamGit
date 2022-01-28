@@ -1,0 +1,60 @@
+#Start
+
+@Name UwU
+@FR *Alexis… Alexis…*
+@EN *Alexis… Alexis…*
+
+@FR *Il est l’heure de te réveiller*
+@EN *It’s time to wake up*
+
+@Name Alexis
+@FR Pourquoi je ne vois rien ? Et pourquoi je n’arrive pas à bouger ?
+@EN Why can’t I see anything ? And why can’t I move ?
+
+@Name EM
+@FR Alexis est maintenant dans un état stable.
+@EN Alexis is now in stable condition.
+
+@Name Alexis
+@FR Qui est en train de parler ?
+@EN Who is speaking ?
+
+@Name Vincent
+@FR Merci docteur mais savez vous quand il ira mieux ? Quand il reviendra ?
+@EN Thank you doctor but do you know when he will be better ? When will he come back ?
+
+@Name Alexis
+@FR De quoi il parle ? C’est mon cousin ? Et pourquoi ils parlent tous comme si je n’étais pas là ?
+@EN What he is talking about ? This is my cousin ? And why are they all talking like I’m not there ?
+
+@FR Hé ! Que ce passe t’il ? Répondez-moi !
+@EN Hey ! What is going on ? Answer me !
+
+@Name EM
+@FR On ne peut rien faire de plus pour le moment.
+@EN We can’t do anything more at the moment. 
+
+@FR Je ne peux que vous conseiller de rester auprès de lui et de lui parler.
+@EN I can only advise you to stay with him and talk to him.
+
+@Name Alexis
+@FR Ouvre les yeux ! Bouge ! Parle ! Pourquoi je n’arrive à rien faire ?! Que m’arrive-t-il ?
+@EN Open your eyes ! Move ! Speak ! Why can’t I do anything ?! What’s happening to me ?
+
+@FR Pourquoi… Pourquoi tout le monde m'ignore ? 
+@EN Why… Why is everyone ignoring me ?
+
+@Name Mère
+@FR Je pense qu’Alexis doit être réveillé maintenant.
+@EN I think Alexis must be awake now.
+
+@Name Père
+@FR Tu peux aller vérifier Marie ?
+@EN Can you go check on Marie ?
+
+@Name Marie
+@FR Oui papa… ALEXIS ! IL EST L’HEURE !
+@EN Yes dad… ALEXIS ! IT’S TIME !
+
+@End
+

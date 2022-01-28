@@ -1,0 +1,26 @@
+#Start
+
+@Name EM
+@FR La respiration est redevenu stable. Il ne devrait plus y avoir de problèmes pour le moment.
+@EN Breathing has become stable again. There should be no more problems for now.
+
+@Name Vincent
+@FR Merci docteur.
+@EN Thank you Doctor.
+
+@Name Marion
+@FR Depuis l’accident, il n’arrive plus à sortir la tête de l’eau…
+@EN Since the accident, he can no longer get his head above water…
+
+@FR J’aurai tellement voulue être plus présente pour lui avant sa tentative.
+@EN I so wanted to be more present for him before his attempt.
+
+@Name Vincent
+@FR Tu n’y peux rien. C’est à lui de réussir à continuer à avancer. On ne peut que l’accompagner.
+@EN You can’t help it. It is up to him to succeed in continuing to move forward. We can only accompany him.
+
+@Name Alexis
+@FR Une tentative ? J’ai fais une tentative de suicide ? Et de quel accident ils parlent ?! Pourquoi je ressens cette culpabilité ? D'où vient-elle ?
+@EN An attempt ? Did I attempt suicide ? And what accident are they talking about ?! Why am I feeling this guilt ? Where is she from ?
+
+@End

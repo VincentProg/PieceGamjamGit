@@ -1,0 +1,16 @@
+#Start
+
+@Name Alexis
+@FR Il y a un mot avec les fleurs.
+@EN There is a word with the flowers.
+
+@FR *Nous sommes de tout coeur avec Alexis et espérons son rétablissement le plus tôt possible pour qu’il puisse retrouver les merveilles de la vie malgré la grande perte qu’il a subie…*
+@EN *Our hearts go out to Alexis and hope for his recovery as soon as possible so that he can rediscover the wonders of life despite the great loss he has suffered…*
+
+@FR Quelle perte ?
+@EN What loss ?
+
+@FR Ma tête ! J’ai l’impression… qu’elle va exploser !
+@EN My head ! I feel like… she’s going to explode !
+
+@End

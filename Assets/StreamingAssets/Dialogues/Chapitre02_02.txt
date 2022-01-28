@@ -1,0 +1,13 @@
+#Start
+
+@Name Alexis
+@FR Je suis… mort ? Je suis devenu un fantôme ?
+@EN I am dead ? I became a ghost ?
+
+@FR Je dois seulement être dans le coma mais… je ne me souviens de rien.
+@EN I just must be in a coma but… I don’t remember anything.
+
+@FR Je ferai mieux de chercher des indices.
+@EN I better look for clues.
+
+@End

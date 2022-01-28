@@ -6,50 +6,77 @@ public abstract class Item : MonoBehaviour
 {
     // Start is called before the first frame update
     protected GhostScript player;
-    [SerializeField] bool canActivateBed;
-    protected bool canBeInteracted = true;
+    [SerializeField] bool isImportant;
+    [SerializeField] protected bool canBeInteracted = true;
     protected ItemShader shader;
 
+    protected CharacterDialogue cDialogue;
+    [SerializeField] protected Object[] dialogues;
+    protected int currentIndexDialog = 0;
+
+    public delegate void EndInteraction();
+    public EndInteraction endInteraction;
+
+    [SerializeField] float sensHighlight;
     protected virtual void Awake()
     {
-        shader = gameObject.AddComponent<ItemShader>();    
+        cDialogue = gameObject.AddComponent<CharacterDialogue>();
+        shader = gameObject.AddComponent<ItemShader>();
+        shader.sens = sensHighlight;
         player = FindObjectOfType<GhostScript>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         if (!canBeInteracted)
         {
-            print(gameObject.name);
             shader.DeactivateShader();
+        }
+
+        if (isImportant)
+        {
+            ImportantItems.Instance.AddImportantItem(this);
         }
     }
 
-    public virtual void Interact()
+    public virtual void Interact(bool canBeDeactivated = true)
     {
         if (canBeInteracted)
         {
             player.canMove = false;
-            Deactivate_Item();
-            print("Interact");
+            if(canBeDeactivated) Deactivate_Item();
+            if (dialogues != null && currentIndexDialog < dialogues.Length)
+            {
+
+                cDialogue.SetFileParts(dialogues[currentIndexDialog]);
+                cDialogue.onDialogueEnd += StopInteraction;
+                cDialogue.Dialogue();
+                currentIndexDialog++;
+            }
+            else StopInteraction();
         }
     }
+
+
 
     public virtual void StopInteraction()
     {
         player.canMove = true;
-        if (canActivateBed) Activate_Bed();
-    }
-
-    public virtual void Activate_Bed()
-    {
-        FindObjectOfType<Bed>().Activate_Bed();
+        if (isImportant) ImportantItems.Instance.ActivateImportantItem(this);
+        endInteraction();
+        endInteraction = null;
     }
 
     private void Deactivate_Item()
     {
         shader.DeactivateShader();
         canBeInteracted = false;
+    }
+
+    public void ActivateItem()
+    {
+        canBeInteracted = true;
+        shader.ActivateShader();
     }
 
 }
